@@ -74,9 +74,10 @@ export const notificationService = {
       // Push subscription oluştur
       let subscription;
       try {
+        const keyArray = this.urlBase64ToUint8Array(vapidKey);
         subscription = await registration.pushManager.subscribe({
           userVisibleOnly: true,
-          applicationServerKey: this.urlBase64ToUint8Array(vapidKey) as BufferSource,
+          applicationServerKey: keyArray,
         });
         console.log('Push subscription created:', subscription.endpoint.substring(0, 50) + '...');
       } catch (subError: any) {

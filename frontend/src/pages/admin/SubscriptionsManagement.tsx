@@ -6,6 +6,9 @@ interface Package {
   id: string;
   name: string;
   price: number;
+  price1Month?: number | null;
+  price6Months?: number | null;
+  price12Months?: number | null;
   duration: number;
 }
 
