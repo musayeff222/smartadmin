@@ -11,7 +11,8 @@ COPY tailwind.config.js ./
 COPY postcss.config.js ./
 
 # Install dependencies
-RUN npm ci
+# Use npm install if package-lock.json is out of sync, otherwise use npm ci
+RUN npm install
 
 # Copy source code
 COPY . .
