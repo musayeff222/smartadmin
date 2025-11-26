@@ -221,21 +221,179 @@ To https://github.com/musayeff222/smartadmin.git
 - Authentication hatası → Personal Access Token kullanın
 - `fatal: not a git repository` → `git init` komutunu çalıştırın
 
-#### 1.2. Sunucuya Clone Edin
+#### 1.2. Sunucuya Git ile Clone Edin ve Çalıştırın
 
+**Adım 1: Sunucuya SSH ile Bağlanın**
 ```bash
-# Sunucuda proje klasörüne git
+# Windows PowerShell veya CMD'de:
+ssh root@YOUR_DROPLET_IP
+
+# İlk bağlantıda "Are you sure you want to continue connecting?" sorusuna "yes" yazın
+# Şifre istenirse, DigitalOcean'dan aldığınız şifreyi girin
+```
+
+**Adım 2: Git'in Kurulu Olduğunu Kontrol Edin**
+```bash
+git --version
+```
+Eğer Git yüklü değilse:
+```bash
+apt update
+apt install -y git
+```
+
+**Adım 3: Projeyi GitHub'dan Clone Edin**
+```bash
+# Proje klasörüne git
 cd /opt
 
-# Repository'nizi clone edin
-git clone https://github.com/YOUR_USERNAME/YOUR_REPO.git smartadmin
+# Repository'nizi clone edin (SİZİN REPO URL'İNİZ)
+git clone https://github.com/musayeff222/smartadmin.git smartadmin
+
+# Proje klasörüne gir
 cd smartadmin
+```
+
+**Not:** Eğer repository private ise, GitHub kullanıcı adı ve şifre/token isteyebilir. Public repository ise sorunsuz clone edilir.
+
+**Adım 4: Dosyaların Yüklendiğini Kontrol Edin**
+```bash
+# Dosyaları listeleyin
+ls -la
+
+# Şunlar görünmeli:
+# - backend/
+# - frontend/
+# - docker-compose.yml
+# - deploy.sh
+# - env.example
+# vb.
+```
+
+**Adım 5: Environment Dosyası Oluşturun**
+```bash
+# env.example'dan .env dosyası oluştur
+cp env.example .env
+
+# .env dosyasını düzenle
+nano .env
+```
+
+**.env dosyasında şunları değiştirin:**
+```env
+# Database Configuration
+DB_HOST=mysql                    # Docker Compose için "mysql" kullanın
+DB_PORT=3306
+DB_USERNAME=pos_user            # İstediğiniz kullanıcı adı
+DB_PASSWORD=güçlü-şifre-buraya  # Güçlü bir şifre oluşturun
+DB_NAME=pos_website
+DB_ROOT_PASSWORD=güçlü-root-şifre  # Güçlü bir şifre oluşturun
+
+# Server Configuration
+NODE_ENV=production
+PORT=5000
+
+# JWT Secret (ÖNEMLİ: Güçlü bir secret kullanın!)
+JWT_SECRET=çok-güçlü-ve-uzun-bir-secret-key-buraya-en-az-32-karakter
+
+# Frontend URL
+FRONTEND_URL=http://YOUR_DROPLET_IP
+# Veya domain'iniz varsa:
+# FRONTEND_URL=https://yourdomain.com
+```
+
+**Güçlü şifre oluşturmak için:**
+```bash
+# Şifre oluştur (32 karakter)
+openssl rand -base64 32
+```
+
+**Dosyayı kaydetmek için:**
+- `Ctrl + O` → Enter (kaydet)
+- `Ctrl + X` (çıkış)
+
+**Adım 6: Deployment Script'ini Çalıştırılabilir Yapın**
+```bash
+chmod +x deploy.sh
+```
+
+**Adım 7: Projeyi Deploy Edin**
+```bash
+# Deployment script'ini çalıştır
+./deploy.sh
+```
+
+Bu script:
+- ✅ Docker image'larını build eder
+- ✅ Eski container'ları durdurur
+- ✅ Yeni container'ları başlatır
+- ✅ Health check yapar
+
+**Veya manuel olarak:**
+```bash
+# Docker image'ları build et
+docker compose build
+
+# Container'ları başlat
+docker compose up -d
+
+# Logları kontrol et
+docker compose logs -f
+```
+
+**Adım 8: Servislerin Çalıştığını Kontrol Edin**
+```bash
+# Container durumunu kontrol et
+docker compose ps
+
+# Tüm servisler "Up" durumunda olmalı:
+# - smartadmin-mysql
+# - smartadmin-backend
+# - smartadmin-frontend
+```
+
+**Adım 9: Health Check Yapın**
+```bash
+# Backend health check
+curl http://localhost:5000/api/health
+
+# Frontend health check
+curl http://localhost/health
+
+# Başarılı olursa şunu göreceksiniz:
+# {"status":"ok","message":"Server is running"}
+```
+
+**Adım 10: Tarayıcıda Test Edin**
+- Frontend: `http://YOUR_DROPLET_IP`
+- Backend API: `http://YOUR_DROPLET_IP:5000/api/health`
+
+---
+
+### 🔄 Güncelleme Yapmak İçin
+
+Kod değişikliği yaptıktan sonra:
+
+**Windows'ta:**
+```powershell
+cd C:\Users\User\Desktop\smartadmin
+git add .
+git commit -m "Update description"
+git push
+```
+
+**Sunucuda:**
+```bash
+cd /opt/smartadmin
+git pull
+./deploy.sh
 ```
 
 **Avantajları:**
 - ✅ Güncellemeler kolay: `git pull` ile güncelleyebilirsiniz
 - ✅ Versiyon kontrolü
 - ✅ Kolay yedekleme
+- ✅ Hızlı deployment
 
 ---
 

@@ -46,9 +46,11 @@ ufw enable
 **Seçenek A: Git ile (önerilen)**
 ```bash
 cd /opt
-git clone YOUR_REPO_URL smartadmin
+git clone https://github.com/musayeff222/smartadmin.git smartadmin
 cd smartadmin
 ```
+
+**Not:** Repository public ise sorunsuz clone edilir. Private ise GitHub kullanıcı adı ve şifre/token isteyebilir.
 
 **Seçenek B: Manuel yükleme (Git gerekmez)**
 - Windows'ta WinSCP veya PowerShell SCP ile dosyaları yükleyin

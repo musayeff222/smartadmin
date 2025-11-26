@@ -58,7 +58,7 @@ const Contact = () => {
     }
   };
 
-  const companyName = settings?.companyName || 'SmartCafe';
+  const _companyName = settings?.companyName || 'SmartCafe';
   const email = settings?.email || 'info@posrestaurant.com';
   const phone = settings?.phone || '+90 (212) 123 45 67';
 

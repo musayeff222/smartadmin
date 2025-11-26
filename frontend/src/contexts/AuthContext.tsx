@@ -84,9 +84,9 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         const storedUser = authService.getUser();
         if (storedUser) {
           console.log('AuthContext - Using stored user from localStorage');
-          const userWithRole = {
+          const userWithRole: User = {
             ...storedUser,
-            role: String(storedUser.role || ''),
+            role: (storedUser.role as 'super_admin' | 'admin' | 'user') || 'user',
           };
           setUser(userWithRole);
           return { user: userWithRole, token: localStorage.getItem('token') };

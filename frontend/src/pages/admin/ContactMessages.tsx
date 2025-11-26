@@ -27,7 +27,7 @@ const ContactMessages = () => {
   const [statusFilter, setStatusFilter] = useState<'all' | 'new' | 'read' | 'replied'>('all');
   const [sortOrder, setSortOrder] = useState<'newest' | 'oldest'>('newest');
   const [deleteConfirm, setDeleteConfirm] = useState<string | null>(null);
-  const [whatsappNumber, setWhatsappNumber] = useState<string>('');
+  const [_whatsappNumber, setWhatsappNumber] = useState<string>('');
 
   useEffect(() => {
     fetchMessages();
@@ -136,7 +136,7 @@ const ContactMessages = () => {
   };
 
   // Aynı kişiden gelen mesajları getir
-  const getRelatedMessages = (message: ContactMessage): ContactMessage[] => {
+  const _getRelatedMessages = (message: ContactMessage): ContactMessage[] => {
     const groupKey = message.phone 
       ? `phone_${message.phone.replace(/[^0-9]/g, '')}`
       : message.deviceId 
@@ -263,13 +263,13 @@ const ContactMessages = () => {
     </svg>
   );
 
-  const ReplyIcon = () => (
+  const _ReplyIcon = () => (
     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6" />
     </svg>
   );
 
-  const SendIcon = () => (
+  const _SendIcon = () => (
     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
     </svg>

@@ -1423,7 +1423,7 @@ const SubscriptionsManagement = () => {
                     <div>Durum</div>
                     <div>İşlem</div>
                   </div>
-                  {selectedSubscription.paymentLogs.map((payment, index) => {
+                  {selectedSubscription.paymentLogs.map((payment) => {
                     // Ödeme tarihini hesapla
                     const startDate = new Date(selectedSubscription.startDate);
                     const paymentDate = new Date(startDate.getFullYear(), startDate.getMonth() + (payment.month - 1), startDate.getDate());

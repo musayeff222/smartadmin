@@ -20,10 +20,19 @@ if ! command -v docker &> /dev/null; then
     exit 1
 fi
 
-if ! command -v docker-compose &> /dev/null; then
+# Docker Compose kontrolü (hem eski hem yeni format)
+DOCKER_COMPOSE_CMD=""
+if command -v docker-compose &> /dev/null; then
+    DOCKER_COMPOSE_CMD="docker-compose"
+elif docker compose version &> /dev/null; then
+    DOCKER_COMPOSE_CMD="docker compose"
+else
     echo -e "${RED}❌ Docker Compose bulunamadı. Lütfen Docker Compose kurun.${NC}"
+    echo -e "${YELLOW}💡 Ubuntu 22.04 için: apt install -y docker-compose-plugin${NC}"
     exit 1
 fi
+
+echo -e "${GREEN}✅ Docker Compose bulundu: ${DOCKER_COMPOSE_CMD}${NC}"
 
 # .env dosyası kontrolü
 if [ ! -f .env ]; then
@@ -35,13 +44,13 @@ fi
 
 # Docker Compose ile build ve start
 echo -e "${GREEN}🔨 Docker image'ları build ediliyor...${NC}"
-docker-compose build --no-cache
+$DOCKER_COMPOSE_CMD build --no-cache
 
 echo -e "${GREEN}🔄 Eski container'lar durduruluyor...${NC}"
-docker-compose down
+$DOCKER_COMPOSE_CMD down
 
 echo -e "${GREEN}🚀 Yeni container'lar başlatılıyor...${NC}"
-docker-compose up -d
+$DOCKER_COMPOSE_CMD up -d
 
 # Health check
 echo -e "${YELLOW}⏳ Servislerin hazır olması bekleniyor (30 saniye)...${NC}"
@@ -52,7 +61,7 @@ if curl -f http://localhost:5000/api/health > /dev/null 2>&1; then
     echo -e "${GREEN}✅ Backend sağlıklı çalışıyor${NC}"
 else
     echo -e "${RED}❌ Backend health check başarısız${NC}"
-    docker-compose logs backend
+    $DOCKER_COMPOSE_CMD logs backend
     exit 1
 fi
 
@@ -61,16 +70,16 @@ if curl -f http://localhost/health > /dev/null 2>&1; then
     echo -e "${GREEN}✅ Frontend sağlıklı çalışıyor${NC}"
 else
     echo -e "${RED}❌ Frontend health check başarısız${NC}"
-    docker-compose logs frontend
+    $DOCKER_COMPOSE_CMD logs frontend
     exit 1
 fi
 
 echo -e "${GREEN}🎉 Deployment başarıyla tamamlandı!${NC}"
 echo -e "${GREEN}📊 Container durumu:${NC}"
-docker-compose ps
+$DOCKER_COMPOSE_CMD ps
 
 echo -e "\n${YELLOW}💡 İpuçları:${NC}"
-echo -e "  - Logları görmek için: docker-compose logs -f"
-echo -e "  - Container'ları durdurmak için: docker-compose down"
-echo -e "  - Yeniden başlatmak için: docker-compose restart"
+echo -e "  - Logları görmek için: ${DOCKER_COMPOSE_CMD} logs -f"
+echo -e "  - Container'ları durdurmak için: ${DOCKER_COMPOSE_CMD} down"
+echo -e "  - Yeniden başlatmak için: ${DOCKER_COMPOSE_CMD} restart"
 

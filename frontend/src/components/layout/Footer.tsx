@@ -19,7 +19,7 @@ interface Settings {
 
 const Footer = () => {
   const [settings, setSettings] = useState<Settings | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [_loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetchSettings();
