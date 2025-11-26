@@ -365,7 +365,7 @@ router.post('/subscriptions/create-demo', requireAdmin, async (req, res) => {
             month,
             year: paymentDate.getFullYear(),
             status: isPaid ? PaymentLogStatus.PAID : PaymentLogStatus.PENDING,
-            paymentDate: isPaid ? paymentDate : null,
+            paymentDate: isPaid ? paymentDate : undefined,
           });
           
           paymentLogs.push(paymentLog);
@@ -1195,10 +1195,14 @@ router.put('/settings', requireAdmin, async (req, res) => {
     
     if (!settings) {
       // Eğer settings yoksa, yeni oluştur
-      settings = settingsRepository.create(req.body);
+      settings = settingsRepository.create(req.body as Partial<Settings>);
     } else {
       // Mevcut settings'i güncelle
       Object.assign(settings, req.body);
+    }
+    
+    if (!settings) {
+      return res.status(500).json({ message: 'Failed to create settings' });
     }
     
     const savedSettings = await settingsRepository.save(settings);

@@ -266,8 +266,9 @@ class WhatsAppAutomation {
           messageBox = await this.page.$(selector);
           if (messageBox) {
             const isVisible = await messageBox.evaluate((el: any) => {
-              // In Puppeteer context, window is available
-              const style = (window as any).getComputedStyle(el);
+              // In Puppeteer context, window is available in browser context
+              // @ts-ignore - window is available in browser context
+              const style = window.getComputedStyle(el);
               return style.display !== 'none' && style.visibility !== 'hidden' && el.offsetParent !== null;
             });
             if (isVisible) {

@@ -34,10 +34,13 @@ router.post('/register', async (req, res) => {
 
     await userRepository.save(user);
 
+    const jwtSecret: string = process.env.JWT_SECRET || 'default-secret';
+    const expiresIn: string = process.env.JWT_EXPIRES_IN || '7d';
+    // @ts-ignore - jsonwebtoken types issue
     const token = jwt.sign(
       { userId: user.id },
-      process.env.JWT_SECRET!,
-      { expiresIn: process.env.JWT_EXPIRES_IN || '7d' }
+      jwtSecret,
+      { expiresIn }
     );
 
     res.status(201).json({
@@ -105,11 +108,13 @@ router.post('/login', async (req, res) => {
 
     console.log('Login successful for:', email);
 
-    const jwtSecret = process.env.JWT_SECRET || 'default-secret';
+    const jwtSecret: string = process.env.JWT_SECRET || 'default-secret';
+    const expiresIn: string = process.env.JWT_EXPIRES_IN || '7d';
+    // @ts-ignore - jsonwebtoken types issue
     const token = jwt.sign(
       { userId: user.id },
       jwtSecret,
-      { expiresIn: (process.env.JWT_EXPIRES_IN || '7d') as string }
+      { expiresIn }
     );
 
     // Role'u string olarak döndür (enum'dan string'e çevir)

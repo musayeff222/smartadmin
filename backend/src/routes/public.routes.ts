@@ -42,12 +42,12 @@ router.post('/track-visitor', async (req, res) => {
     // Eğer bugün aynı cihazdan aynı sayfaya ziyaret yoksa logla
     if (!existingVisit) {
       const visitorLog = visitorLogRepository.create({
-        ipAddress: String(ipAddress),
-        userAgent,
-        deviceId,
-        referer,
+        ipAddress: String(ipAddress || ''),
+        userAgent: userAgent || undefined,
+        deviceId: deviceId || undefined,
+        referer: referer || undefined,
         path: path || '/',
-      });
+      } as Partial<VisitorLog>);
 
       await visitorLogRepository.save(visitorLog);
     }
@@ -125,12 +125,12 @@ router.post('/contact', async (req, res) => {
     const contactMessage = contactRepository.create({
       name,
       email,
-      phone,
+      phone: phone || undefined,
       subject,
       message,
-      userAgent,
-      deviceId,
-    });
+      userAgent: userAgent || undefined,
+      deviceId: deviceId || undefined,
+    } as Partial<ContactMessage>);
 
     await contactRepository.save(contactMessage);
 
@@ -216,13 +216,13 @@ Sipariş Tarihi: ${new Date().toLocaleString('tr-TR')}
     const orderMessageEntity = contactRepository.create({
       name,
       email,
-      phone,
+      phone: phone || undefined,
       subject: `Paket Siparişi: ${packageName}`,
       message: orderMessage,
       status: MessageStatus.NEW,
-      userAgent,
-      deviceId,
-    });
+      userAgent: userAgent || undefined,
+      deviceId: deviceId || undefined,
+    } as Partial<ContactMessage>);
 
     await contactRepository.save(orderMessageEntity);
 
