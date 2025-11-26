@@ -105,14 +105,15 @@ router.post('/login', async (req, res) => {
 
     console.log('Login successful for:', email);
 
+    const jwtSecret = process.env.JWT_SECRET || 'default-secret';
     const token = jwt.sign(
       { userId: user.id },
-      process.env.JWT_SECRET!,
-      { expiresIn: process.env.JWT_EXPIRES_IN || '7d' }
+      jwtSecret,
+      { expiresIn: (process.env.JWT_EXPIRES_IN || '7d') as string }
     );
 
     // Role'u string olarak döndür (enum'dan string'e çevir)
-    const userRole = typeof user.role === 'string' ? user.role : user.role.toString();
+    const userRole = typeof user.role === 'string' ? user.role : String(user.role);
     
     console.log('Login response - User role:', {
       originalRole: user.role,

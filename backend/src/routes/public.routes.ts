@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { AppDataSource } from '../data-source';
 import { Package } from '../entities/Package';
-import { ContactMessage } from '../entities/ContactMessage';
+import { ContactMessage, MessageStatus } from '../entities/ContactMessage';
 import { SiteContent } from '../entities/SiteContent';
 import { Settings } from '../entities/Settings';
 import { NotificationSubscription } from '../entities/NotificationSubscription';
@@ -219,7 +219,7 @@ Sipariş Tarihi: ${new Date().toLocaleString('tr-TR')}
       phone,
       subject: `Paket Siparişi: ${packageName}`,
       message: orderMessage,
-      status: 'new',
+      status: MessageStatus.NEW,
       userAgent,
       deviceId,
     });

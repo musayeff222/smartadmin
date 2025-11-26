@@ -5,7 +5,7 @@ import { MoreThanOrEqual, LessThan, In } from 'typeorm';
 import { Package } from '../entities/Package';
 import { Subscription, PaymentType, SubscriptionStatus, PaymentStatus } from '../entities/Subscription';
 import { PaymentLog, PaymentLogStatus } from '../entities/PaymentLog';
-import { ContactMessage } from '../entities/ContactMessage';
+import { ContactMessage, MessageStatus } from '../entities/ContactMessage';
 import { SiteContent } from '../entities/SiteContent';
 import { Settings } from '../entities/Settings';
 import { NotificationSubscription } from '../entities/NotificationSubscription';
@@ -455,8 +455,8 @@ router.post('/subscriptions', requireAdmin, async (req, res) => {
       endDate: end,
       amount: parseFloat(amount),
       notes: notes?.trim() || null,
-      paymentStatus: paymentStatus || 'pending',
-      status: 'active',
+      paymentStatus: (paymentStatus as PaymentStatus) || PaymentStatus.PENDING,
+      status: SubscriptionStatus.ACTIVE,
     });
     
     const savedSubscription = await subscriptionRepository.save(subscription);
@@ -628,7 +628,7 @@ router.put('/subscriptions/:id/payments/:paymentId', requireAdmin, async (req, r
     const allPayments = await paymentLogRepository.find({ where: { subscriptionId: id } });
     const allPaid = allPayments.every((p) => p.status === PaymentLogStatus.PAID);
     if (allPaid) {
-      subscription.paymentStatus = 'paid';
+      subscription.paymentStatus = PaymentStatus.PAID;
       await subscriptionRepository.save(subscription);
     }
 
@@ -727,7 +727,7 @@ router.put('/contact-messages/:id/reply', requireAdmin, async (req, res) => {
       return res.status(404).json({ message: 'Message not found' });
     }
     message.reply = reply;
-    message.status = 'replied';
+    message.status = MessageStatus.REPLIED;
     message.repliedBy = (req as AuthRequest).user!.id;
     await contactRepository.save(message);
     res.json({ message });
@@ -745,7 +745,7 @@ router.put('/contact-messages/:id/read', requireAdmin, async (req, res) => {
       return res.status(404).json({ message: 'Message not found' });
     }
     if (message.status === 'new') {
-      message.status = 'read';
+      message.status = MessageStatus.READ;
       await contactRepository.save(message);
     }
     res.json({ message });
@@ -846,9 +846,9 @@ router.get('/statistics', requireAdmin, async (req, res) => {
       todayVisitors,
     ] = await Promise.all([
       subscriptionRepository.count(),
-      subscriptionRepository.count({ where: { status: 'active' } }),
+      subscriptionRepository.count({ where: { status: SubscriptionStatus.ACTIVE } }),
       contactRepository.count(),
-      contactRepository.count({ where: { status: 'new' } }),
+      contactRepository.count({ where: { status: MessageStatus.NEW } }),
       packageRepository.count({ where: { isActive: true } }),
       userRepository.count(),
       visitorLogRepository
@@ -1201,8 +1201,8 @@ router.put('/settings', requireAdmin, async (req, res) => {
       Object.assign(settings, req.body);
     }
     
-    await settingsRepository.save(settings);
-    res.json({ settings });
+    const savedSettings =     const savedSettings = await settingsRepository.save(settings);
+    res.json({ settings: savedSettings });
   } catch (error) {
     console.error('Update settings error:', error);
     res.status(500).json({ message: 'Internal server error' });
