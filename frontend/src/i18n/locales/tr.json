@@ -1,0 +1,46 @@
+{
+  "nav": {
+    "home": "Ana Sayfa",
+    "features": "Özellikler",
+    "packages": "Paketler",
+    "about": "Hakkımızda",
+    "contact": "İletişim"
+  },
+  "home": {
+    "title": "Restoranınızı Dijitalleştirin",
+    "subtitle": "Modern POS sistemi ile sipariş yönetimi, stok takibi ve daha fazlası",
+    "viewPackages": "Paketleri İncele",
+    "exploreFeatures": "Özellikleri Keşfet",
+    "whySmartCafe": "Neden SmartCafe?",
+    "fastOrder": "Hızlı Sipariş Yönetimi",
+    "fastOrderDesc": "Siparişlerinizi hızlı ve kolay bir şekilde yönetin. Masa bazlı takip ve anlık bildirimler.",
+    "stockTracking": "Stok Takibi",
+    "stockTrackingDesc": "Otomatik stok takibi ile malzeme yönetimini kolaylaştırın. Düşük stok uyarıları.",
+    "multiUser": "Çoklu Kullanıcı Desteği",
+    "multiUserDesc": "Ekip üyelerinizle birlikte çalışın. Rol bazlı yetkilendirme ve güvenli erişim.",
+    "mobile": "Mobil Uyumlu",
+    "mobileDesc": "Her cihazdan erişim sağlayın. Tablet, telefon ve bilgisayardan sorunsuz kullanım.",
+    "reports": "Detaylı Raporlar",
+    "reportsDesc": "Satış raporları, en çok satan ürünler ve gelir analizleri ile işinizi büyütün.",
+    "secure": "Güvenli ve Güvenilir",
+    "secureDesc": "Verileriniz güvende. SSL şifreleme ve düzenli yedekleme ile koruma altında.",
+    "getStarted": "Hemen Başlayın",
+    "getStartedDesc": "Restoranınızı dijitalleştirmek için doğru zamandasınız. Hemen abone olun ve avantajları keşfedin.",
+    "viewPackagesBtn": "Paketleri Görüntüle"
+  },
+  "common": {
+    "loading": "Yükleniyor...",
+    "error": "Bir hata oluştu",
+    "success": "Başarılı",
+    "save": "Kaydet",
+    "cancel": "İptal",
+    "delete": "Sil",
+    "edit": "Düzenle",
+    "close": "Kapat"
+  }
+}
+
+
+
+
+

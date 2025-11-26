@@ -1,0 +1,45 @@
+[build]
+  # Frontend build komutu
+  command = "cd frontend && npm install && npm run build"
+  # Build çıktı dizini
+  publish = "frontend/dist"
+  
+  # Environment variables (Netlify dashboard'dan da ayarlanabilir)
+  # [build.environment]
+  #   NODE_VERSION = "18"
+
+# Redirect kuralları (SPA için)
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Headers
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+[[headers]]
+  for = "/static/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Netlify Functions (opsiyonel - backend için)
+# [functions]
+#   directory = "netlify/functions"
+#   node_bundler = "esbuild"
+

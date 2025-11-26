@@ -1,0 +1,46 @@
+{
+  "nav": {
+    "home": "Home",
+    "features": "Features",
+    "packages": "Packages",
+    "about": "About",
+    "contact": "Contact"
+  },
+  "home": {
+    "title": "Digitize Your Restaurant",
+    "subtitle": "Order management, inventory tracking and more with modern POS system",
+    "viewPackages": "View Packages",
+    "exploreFeatures": "Explore Features",
+    "whySmartCafe": "Why SmartCafe?",
+    "fastOrder": "Fast Order Management",
+    "fastOrderDesc": "Manage your orders quickly and easily. Table-based tracking and instant notifications.",
+    "stockTracking": "Inventory Tracking",
+    "stockTrackingDesc": "Simplify material management with automatic inventory tracking. Low stock alerts.",
+    "multiUser": "Multi-User Support",
+    "multiUserDesc": "Work together with your team. Role-based authorization and secure access.",
+    "mobile": "Mobile Compatible",
+    "mobileDesc": "Access from any device. Seamless use from tablet, phone and computer.",
+    "reports": "Detailed Reports",
+    "reportsDesc": "Grow your business with sales reports, best-selling products and revenue analysis.",
+    "secure": "Secure and Reliable",
+    "secureDesc": "Your data is safe. Protected with SSL encryption and regular backups.",
+    "getStarted": "Get Started",
+    "getStartedDesc": "You're at the right time to digitize your restaurant. Subscribe now and discover the advantages.",
+    "viewPackagesBtn": "View Packages"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "success": "Success",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "close": "Close"
+  }
+}
+
+
+
+
+

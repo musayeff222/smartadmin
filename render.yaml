@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: smartadmin-backend
+    env: node
+    buildCommand: cd backend && npm install && npm run build
+    startCommand: cd backend && npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 5000
+      # Aşağıdaki değerleri Render dashboard'dan ekleyin:
+      # - DB_HOST
+      # - DB_PORT
+      # - DB_USERNAME
+      # - DB_PASSWORD
+      # - DB_DATABASE
+      # - JWT_SECRET
+      # - FRONTEND_URL
+      # - NETLIFY_URL
+

@@ -1,0 +1,46 @@
+{
+  "nav": {
+    "home": "Ana Səhifə",
+    "features": "Xüsusiyyətlər",
+    "packages": "Paketlər",
+    "about": "Haqqımızda",
+    "contact": "Əlaqə"
+  },
+  "home": {
+    "title": "Restoranınızı Rəqəmsallaşdırın",
+    "subtitle": "Müasir POS sistemi ilə sifariş idarəetməsi, inventar izləməsi və daha çoxu",
+    "viewPackages": "Paketləri Görüntülə",
+    "exploreFeatures": "Xüsusiyyətləri Kəşf Edin",
+    "whySmartCafe": "Niyə SmartCafe?",
+    "fastOrder": "Sürətli Sifariş İdarəetməsi",
+    "fastOrderDesc": "Sifarişlərinizi tez və asanlıqla idarə edin. Masaya əsaslanan izləmə və ani bildirişlər.",
+    "stockTracking": "İnventar İzləməsi",
+    "stockTrackingDesc": "Avtomatik inventar izləməsi ilə material idarəetməsini asanlaşdırın. Aşağı inventar xəbərdarlıqları.",
+    "multiUser": "Çoxlu İstifadəçi Dəstəyi",
+    "multiUserDesc": "Komandanızla birlikdə işləyin. Rol əsaslı yetkilendirme və təhlükəsiz giriş.",
+    "mobile": "Mobil Uyğun",
+    "mobileDesc": "Hər hansı cihazdan giriş əldə edin. Planşet, telefon və kompüterdən problemsiz istifadə.",
+    "reports": "Ətraflı Hesabatlar",
+    "reportsDesc": "Satış hesabatları, ən çox satılan məhsullar və gəlir analizi ilə işinizi böyüdün.",
+    "secure": "Təhlükəsiz və Etibarlı",
+    "secureDesc": "Məlumatlarınız təhlükəsizdir. SSL şifrələmə və müntəzəm yedəkləmə ilə qorunur.",
+    "getStarted": "Dərhal Başlayın",
+    "getStartedDesc": "Restoranınızı rəqəmsallaşdırmaq üçün doğru zamandasınız. Dərhal abunə olun və üstünlükləri kəşf edin.",
+    "viewPackagesBtn": "Paketləri Görüntülə"
+  },
+  "common": {
+    "loading": "Yüklənir...",
+    "error": "Xəta baş verdi",
+    "success": "Uğurlu",
+    "save": "Saxla",
+    "cancel": "Ləğv et",
+    "delete": "Sil",
+    "edit": "Redaktə et",
+    "close": "Bağla"
+  }
+}
+
+
+
+
+
