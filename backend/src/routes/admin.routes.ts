@@ -1201,7 +1201,7 @@ router.put('/settings', requireAdmin, async (req, res) => {
       Object.assign(settings, req.body);
     }
     
-    const savedSettings =     const savedSettings = await settingsRepository.save(settings);
+    const savedSettings = await settingsRepository.save(settings);
     res.json({ settings: savedSettings });
   } catch (error) {
     console.error('Update settings error:', error);

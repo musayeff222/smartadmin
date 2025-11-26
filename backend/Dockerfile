@@ -25,7 +25,8 @@ WORKDIR /app
 COPY package*.json ./
 
 # Install only production dependencies
-RUN npm ci --only=production
+# Use npm install if package-lock.json is out of sync
+RUN npm install --omit=dev
 
 # Copy built files from builder
 COPY --from=builder /app/dist ./dist
