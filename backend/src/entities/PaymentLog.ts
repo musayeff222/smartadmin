@@ -25,7 +25,7 @@ export class PaymentLog {
   @JoinColumn({ name: 'subscriptionId' })
   subscription: Subscription;
 
-  @Column()
+  @Column({ type: 'varchar', length: 36 })
   subscriptionId: string;
 
   @Column('decimal', { precision: 10, scale: 2 })

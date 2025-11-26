@@ -17,7 +17,7 @@ export const AppDataSource = new DataSource({
   username: process.env.DB_USERNAME || 'root',
   password: process.env.DB_PASSWORD || '',
   database: process.env.DB_NAME || 'pos_website',
-  synchronize: true, // Development için true - tabloları otomatik oluşturur
+  synchronize: process.env.NODE_ENV !== 'production', // Production'da false, development'te true
   logging: process.env.NODE_ENV === 'development',
   entities: [User, Subscription, Package, ContactMessage, SiteContent, Settings, NotificationSubscription, PaymentLog, VisitorLog, AdvertisingCustomer],
   migrations: ['src/migrations/**/*.ts'],

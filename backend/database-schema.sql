@@ -39,18 +39,47 @@ CREATE TABLE IF NOT EXISTS `packages` (
 -- Subscriptions tablosu
 CREATE TABLE IF NOT EXISTS `subscriptions` (
   `id` VARCHAR(36) PRIMARY KEY,
-  `userId` VARCHAR(36) NOT NULL,
+  `userId` VARCHAR(36),
   `packageId` VARCHAR(36) NOT NULL,
+  `customerId` VARCHAR(255),
+  `customerName` VARCHAR(255),
+  `customerEmail` VARCHAR(255),
+  `customerPhone` VARCHAR(50),
+  `customerLogin` VARCHAR(255),
+  `customerPassword` VARCHAR(255),
+  `restaurantName` VARCHAR(255),
+  `restaurantAddress` TEXT,
   `status` ENUM('active', 'expired', 'cancelled') DEFAULT 'active',
+  `paymentStatus` ENUM('pending', 'paid') DEFAULT 'pending',
+  `paymentType` ENUM('one_time', 'monthly') DEFAULT 'one_time',
   `startDate` DATETIME NOT NULL,
   `endDate` DATETIME NOT NULL,
+  `durationMonths` INT DEFAULT 1,
   `amount` DECIMAL(10, 2) NOT NULL,
+  `notes` TEXT,
   `createdAt` DATETIME DEFAULT CURRENT_TIMESTAMP,
   `updatedAt` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  FOREIGN KEY (`userId`) REFERENCES `users`(`id`) ON DELETE CASCADE,
+  FOREIGN KEY (`userId`) REFERENCES `users`(`id`) ON DELETE SET NULL,
   FOREIGN KEY (`packageId`) REFERENCES `packages`(`id`) ON DELETE CASCADE,
   INDEX `idx_userId` (`userId`),
   INDEX `idx_packageId` (`packageId`),
+  INDEX `idx_status` (`status`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Payment Logs tablosu (aylık ödemeler için)
+CREATE TABLE IF NOT EXISTS `payment_logs` (
+  `id` VARCHAR(36) PRIMARY KEY,
+  `subscriptionId` VARCHAR(36) NOT NULL,
+  `amount` DECIMAL(10, 2) NOT NULL,
+  `month` INT NOT NULL,
+  `year` INT NOT NULL,
+  `status` ENUM('pending', 'paid', 'overdue', 'cancelled') DEFAULT 'pending',
+  `paymentDate` DATETIME,
+  `notes` TEXT,
+  `createdAt` DATETIME DEFAULT CURRENT_TIMESTAMP,
+  `updatedAt` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  FOREIGN KEY (`subscriptionId`) REFERENCES `subscriptions`(`id`) ON DELETE CASCADE,
+  INDEX `idx_subscriptionId` (`subscriptionId`),
   INDEX `idx_status` (`status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
