@@ -248,8 +248,26 @@ git push
 ### Sunucuda:
 ```bash
 cd /opt/smartadmin
+
+# Eğer yerel değişiklikler varsa (hata alırsanız):
+# Seçenek 1: Yerel değişiklikleri stash et (geçici olarak sakla)
+git stash
 git pull
+git stash pop  # Eğer stash'teki değişiklikleri geri istiyorsanız
+
+# Seçenek 2: Yerel değişiklikleri at ve GitHub'daki versiyonu kullan (önerilen)
+git reset --hard HEAD
+git pull
+
+# Sonra deploy et
 ./deploy.sh
+```
+
+**Not:** Eğer `git pull` sırasında "Your local changes would be overwritten" hatası alırsanız:
+```bash
+# Yerel değişiklikleri at ve GitHub'daki versiyonu kullan
+git reset --hard HEAD
+git pull
 ```
 
 ---

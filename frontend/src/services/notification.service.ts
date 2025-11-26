@@ -75,9 +75,11 @@ export const notificationService = {
       let subscription;
       try {
         const keyArray = this.urlBase64ToUint8Array(vapidKey);
+        // Uint8Array is a valid BufferSource (it's an ArrayBufferView)
+        // TypeScript strict mode requires explicit type assertion
         subscription = await registration.pushManager.subscribe({
           userVisibleOnly: true,
-          applicationServerKey: keyArray,
+          applicationServerKey: keyArray as any as BufferSource,
         });
         console.log('Push subscription created:', subscription.endpoint.substring(0, 50) + '...');
       } catch (subError: any) {
